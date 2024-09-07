@@ -2,9 +2,8 @@
 
 namespace App\Livewire\Forms;
 
-use Illuminate\Validation\Rules\Password;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Illuminate\Validation\Rules\Password;
 
 class UserForm extends Form
 {
@@ -17,15 +16,16 @@ class UserForm extends Form
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email:rfc,dns',
+            'name' => 'required|max:60',
+            'email' => 'required|email:rfc,dns|max:255',
             'password' => [
                 'required',
                 Password::min(8)
                     ->letters()
                     ->mixedCase()
                     ->numbers()
-                    ->symbols()],
+                    ->symbols()
+            ],
         ];
     }
 }

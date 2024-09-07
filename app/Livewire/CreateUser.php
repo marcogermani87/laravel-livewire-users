@@ -2,36 +2,22 @@
 
 namespace App\Livewire;
 
-use App\Livewire\Forms\UserForm;
 use App\Models\User;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rules\Password;
-use LivewireUI\Modal\ModalComponent;
+use Illuminate\Support\Carbon;
+use App\Livewire\Forms\UserForm;
+use Illuminate\Support\Facades\Hash;
+use Livewire\Component;
 
-class CreateUser extends ModalComponent
+class CreateUser extends Component
 {
     public UserForm $form;
 
-    public static function modalMaxWidth(): string
-    {
-        return '2xl';
-    }
+    public bool $showModal = false;
 
     public function save()
     {
         $this->validate();
-
-//        $validated = $this->validate([
-//            'name' => 'required',
-//            'email' => 'required|email:rfc,dns',
-//            'password' => ['required', Password::min(8)
-//                ->letters()
-//                ->mixedCase()
-//                ->numbers()
-//                ->symbols()],
-//        ]);
 
         $formData = $this->form->all();
 
@@ -41,13 +27,15 @@ class CreateUser extends ModalComponent
 
         User::create($formData);
 
-        session()->flash('created', 'User successfully created.');
-
-        /*$this->closeModalWithEvents([
-            SearchUser::class => 'userCreated',
-        ]);*/
+        session()->flash('success-message', 'User successfully created.');
 
         return $this->redirect('/users', navigate: true);
+    }
+
+    public function closeModal()
+    {
+        $this->showModal= false;
+        $this->form->clearValidation();
     }
 
     public function render()

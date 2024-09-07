@@ -23,7 +23,7 @@ class SearchUser extends Component
 
         $user->delete();
 
-        session()->flash('deleted', 'User successfully deleted.');
+        session()->flash('success-message', 'User successfully deleted.');
     }
 
     public function render()
