@@ -5,7 +5,7 @@
         <x-mary-modal wire:model="showModal" persistent>
             <div>Are you sure?</div>
             <x-slot:actions>
-                <x-mary-button label="Cancel" @click="$wire.showModal = false"/>
+                <x-mary-button label="Cancel" wire:click="closeModal()" />
                 <x-mary-button label="Delete" class="btn-error" wire:click="delete({{ $id }})" spinner />
             </x-slot:actions>
         </x-mary-modal>

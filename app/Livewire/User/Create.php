@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use App\Livewire\Forms\UserForm;
+use App\Livewire\Traits\HasModal;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -11,9 +12,9 @@ use Livewire\Component;
 
 class Create extends Component
 {
-    public UserForm $form;
+    use HasModal;
 
-    public bool $showModal = false;
+    public UserForm $form;
 
     public function save()
     {

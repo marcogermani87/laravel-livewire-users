@@ -2,15 +2,15 @@
 
 namespace App\Livewire\User;
 
+use App\Livewire\Traits\HasModal;
 use App\Models\User;
 use Livewire\Component;
-use App\Livewire\Forms\UserForm;
 
 class Delete extends Component
 {
-    public int $id;
+    use HasModal;
 
-    public bool $showModal = false;
+    public int $id;
 
     public function delete($id)
     {
@@ -21,11 +21,6 @@ class Delete extends Component
         session()->flash('success-message', 'User successfully deleted.');
 
         return $this->redirect('/users', navigate: true);
-    }
-
-    public function closeModal()
-    {
-        $this->showModal = false;
     }
 
     public function render()

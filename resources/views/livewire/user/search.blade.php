@@ -46,18 +46,13 @@
                     @if(!$isYou)
                         <livewire:user.edit :id="$user->id" wire:key="user-edit-{{ $user->id }}"/>
                         <livewire:user.delete :id="$user->id" wire:key="user-delete-{{ $user->id }}"/>
-
-{{--                        <x-mary-button--}}
-{{--                            icon="o-trash"--}}
-{{--                            class="btn-outline btn-sm text-red-500"--}}
-{{--                            wire:key="user-delete-{{ $user->id }}"--}}
-{{--                            wire:click="delete({{ $user->id }})"--}}
-{{--                            wire:confirm="Are you sure you want to delete this user?"--}}
-{{--                            spinner--}}
-{{--                        />--}}
                     @else
-                        <x-mary-button icon="o-pencil-square" class="btn-outline btn-sm" link="{{ route('profile') }}"
-                                       wire:navigate />
+                        <x-mary-button
+                            icon="o-pencil-square"
+                            class="btn-outline btn-sm"
+                            link="{{ route('profile') }}"
+                            wire:navigate
+                        />
                     @endif
                 </x-slot:actions>
             </x-mary-list-item>

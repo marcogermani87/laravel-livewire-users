@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Livewire\Traits\HasModal;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -10,13 +11,13 @@ use App\Livewire\Forms\UserForm;
 
 class Edit extends Component
 {
+    use HasModal;
+
     public int $id;
 
     public User $user;
 
     public UserForm $form;
-
-    public bool $showModal = false;
 
     public function mount()
     {
@@ -57,9 +58,11 @@ class Edit extends Component
         return $this->redirect('/users', navigate: true);
     }
 
-    public function closeModal()
+    public function closeModal(): void
     {
         $this->showModal = false;
+        $this->form->reset('password');
+        $this->form->clearValidation();
     }
 
     public function render()
