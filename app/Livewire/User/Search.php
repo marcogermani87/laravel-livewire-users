@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\User;
 
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class SearchUser extends Component
+class Search extends Component
 {
     use WithPagination;
 
@@ -38,7 +38,7 @@ class SearchUser extends Component
         $users = $query->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('livewire.user.search-user', [
+        return view('livewire.user.search', [
             'users' => $users,
         ]);
     }

@@ -14,12 +14,12 @@
     @endif
     <x-mary-card class="py-6 px-12" x-init="setInterval(() => {$wire.$refresh()}, 10000)">
         <div class="sm:flex sm:flex-col sm:items-end mb-3">
-            <livewire:create-user/>
+            <livewire:user.create/>
         </div>
         <x-mary-input wire:model.live="search" placeholder="Search user for login or name..."
                       class="border-2 border-indigo-500/100 rounded-md w-full p-2 mb-3"/>
         @foreach ($users as $user)
-            <x-mary-list-item :item="$user">
+            <x-mary-list-item :item="$user" wire:key="user-list-item-{{ $user->id }}">
                 <x-slot:avatar>
                     <x-mary-avatar
                         :image="'https://ui-avatars.com/api/?size=128&background=random&name=' . urlencode($user->name)"
@@ -32,9 +32,11 @@
                     {{ $user->email }}
                 </x-slot:sub-value>
                 <x-slot:actions>
+                    <livewire:user.edit :id="$user->id" wire:key="user-edit-{{ $user->id }}" />
                     <x-mary-button
                         icon="o-trash"
                         class="btn-outline btn-sm text-red-500"
+                        wire:key="user-delete-{{ $user->id }}"
                         wire:click="delete({{ $user->id }})"
                         wire:confirm="Are you sure you want to delete this user?"
                         spinner

@@ -1,10 +1,10 @@
 <?php
 
-use Livewire\Volt\Volt;
-use App\Livewire\CreateUser;
-use App\Livewire\SearchUser;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Livewire\User\Create;
+use App\Livewire\User\Search;
+use Illuminate\Support\Facades\Route;
+use Livewire\Volt\Volt;
 
 Route::view('/', 'welcome');
 
@@ -40,8 +40,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')
         ->name('dashboard');
-    Route::get('/users', SearchUser::class)
+    Route::get('/users', Search::class)
         ->name('users');
-    Route::get('/users/create', CreateUser::class)
+    Route::get('/users/create', Create::class)
         ->name('users.create');
 });

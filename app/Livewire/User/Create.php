@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\User;
 
-use App\Models\User;
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
 use App\Livewire\Forms\UserForm;
+use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
-class CreateUser extends Component
+class Create extends Component
 {
     public UserForm $form;
 
@@ -40,6 +40,6 @@ class CreateUser extends Component
 
     public function render()
     {
-        return view('livewire.user.create-user');
+        return view('livewire.user.create');
     }
 }

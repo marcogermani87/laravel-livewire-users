@@ -1,9 +1,9 @@
 <?php
 
-use App\Livewire\CreateUser;
+use App\Livewire\User\Create;
 use Livewire\Livewire;
 
 it('renders successfully', function () {
-    Livewire::test(CreateUser::class)
+    Livewire::test(Create::class)
         ->assertStatus(200);
 });

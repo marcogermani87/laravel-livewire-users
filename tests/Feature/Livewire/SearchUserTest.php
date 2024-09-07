@@ -1,9 +1,9 @@
 <?php
 
-use App\Livewire\SearchUser;
+use App\Livewire\User\Search;
 use Livewire\Livewire;
 
 it('renders successfully', function () {
-    Livewire::test(SearchUser::class)
+    Livewire::test(Search::class)
         ->assertStatus(200);
 });
