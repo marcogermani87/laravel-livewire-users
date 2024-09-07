@@ -12,8 +12,8 @@
             {{ session('success-message') }}
         </x-mary-alert>
     @endif
-    <x-mary-card class="py-6 px-12" wire:poll.15s>
-        <div class="sm:flex sm:flex-col sm:items-end mb-3">
+    <x-mary-card class="py-6 px-12" wire:poll.keep-alive.15s>
+        <div class="sm:flex sm:flex-col sm:items-end mb-5">
             <livewire:user.create/>
         </div>
         <div class="mb-3">

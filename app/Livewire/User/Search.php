@@ -17,11 +17,6 @@ class Search extends Component
         $this->resetPage();
     }
 
-    public function closeModal()
-    {
-        $this->showModal = false;
-    }
-
     public function render()
     {
         $query = User::query();
