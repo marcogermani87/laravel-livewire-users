@@ -12,13 +12,18 @@
             {{ session('success-message') }}
         </x-mary-alert>
     @endif
-    <x-mary-card class="py-6 px-12" x-init="setInterval(() => {$wire.$refresh()}, 10000)">
+    <x-mary-card class="py-6 px-12" wire:poll.15s>
         <div class="sm:flex sm:flex-col sm:items-end mb-3">
             <livewire:user.create/>
         </div>
-        <x-mary-input wire:model.live="search" placeholder="Search user for login or name..."
-                      class="border-2 border-indigo-500/100 rounded-md w-full p-2 mb-3"/>
+        <div class="mb-3">
+            <x-mary-input wire:model.live="search" placeholder="Search user for login or name..." autocomplete="off"
+                          clearable/>
+        </div>
         @foreach ($users as $user)
+            @php
+                $isYou = auth()->user()->id === $user->id;
+            @endphp
             <x-mary-list-item :item="$user" wire:key="user-list-item-{{ $user->id }}">
                 <x-slot:avatar>
                     <x-mary-avatar
@@ -29,25 +34,34 @@
                     {{ $user->name }}
                 </x-slot:value>
                 <x-slot:sub-value>
-                    {{ $user->email }}
+                    {{ $user->email }} @if($isYou)
+                        <x-mary-badge value="You" class="ml-2 badge-info"/>
+                    @endif
                 </x-slot:sub-value>
                 <x-slot:actions>
-                    <livewire:user.edit :id="$user->id" wire:key="user-edit-{{ $user->id }}" />
-                    <x-mary-button
-                        icon="o-trash"
-                        class="btn-outline btn-sm text-red-500"
-                        wire:key="user-delete-{{ $user->id }}"
-                        wire:click="delete({{ $user->id }})"
-                        wire:confirm="Are you sure you want to delete this user?"
-                        spinner
-                    />
+                    @if(!$isYou)
+                        <livewire:user.edit :id="$user->id" wire:key="user-edit-{{ $user->id }}"/>
+                        <x-mary-button
+                            icon="o-trash"
+                            class="btn-outline btn-sm text-red-500"
+                            wire:key="user-delete-{{ $user->id }}"
+                            wire:click="delete({{ $user->id }})"
+                            wire:confirm="Are you sure you want to delete this user?"
+                            spinner
+                        />
+                    @else
+                        <x-mary-button icon="o-pencil-square" class="btn-outline btn-sm" link="{{ route('profile') }}"
+                                       wire:navigate/>
+                    @endif
                 </x-slot:actions>
             </x-mary-list-item>
         @endforeach
         @if( !empty($search) && count($users) <= 0)
-            <x-mary-alert icon="o-information-circle" class="alert-info mt-3">
-                No users found!
-            </x-mary-alert>
+            <div class="mt-5">
+                <x-mary-alert icon="o-information-circle" class="alert-info">
+                    No users found!
+                </x-mary-alert>
+            </div>
         @endif
         <div class="mt-3">
             {{ $users->links() }}

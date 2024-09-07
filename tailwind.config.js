@@ -29,5 +29,9 @@ export default {
         require('daisyui'),
     ],
 
-    darkMode: 'class',
+    daisyui: {
+        themes: ['light', 'dark']
+    },
+
+    darkMode: ['class', '[data-theme="dark"]']
 };
