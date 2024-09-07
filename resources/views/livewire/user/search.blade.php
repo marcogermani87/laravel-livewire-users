@@ -17,8 +17,12 @@
             <livewire:user.create/>
         </div>
         <div class="mb-3">
-            <x-mary-input wire:model.live="search" placeholder="Search user for login or name..." autocomplete="off"
-                          clearable/>
+            <x-mary-input
+                wire:model.live="search"
+                placeholder="Search user for e-mail or name..."
+                autocomplete="off"
+                clearable
+            />
         </div>
         @foreach ($users as $user)
             @php
@@ -41,17 +45,19 @@
                 <x-slot:actions>
                     @if(!$isYou)
                         <livewire:user.edit :id="$user->id" wire:key="user-edit-{{ $user->id }}"/>
-                        <x-mary-button
-                            icon="o-trash"
-                            class="btn-outline btn-sm text-red-500"
-                            wire:key="user-delete-{{ $user->id }}"
-                            wire:click="delete({{ $user->id }})"
-                            wire:confirm="Are you sure you want to delete this user?"
-                            spinner
-                        />
+                        <livewire:user.delete :id="$user->id" wire:key="user-delete-{{ $user->id }}"/>
+
+{{--                        <x-mary-button--}}
+{{--                            icon="o-trash"--}}
+{{--                            class="btn-outline btn-sm text-red-500"--}}
+{{--                            wire:key="user-delete-{{ $user->id }}"--}}
+{{--                            wire:click="delete({{ $user->id }})"--}}
+{{--                            wire:confirm="Are you sure you want to delete this user?"--}}
+{{--                            spinner--}}
+{{--                        />--}}
                     @else
                         <x-mary-button icon="o-pencil-square" class="btn-outline btn-sm" link="{{ route('profile') }}"
-                                       wire:navigate/>
+                                       wire:navigate />
                     @endif
                 </x-slot:actions>
             </x-mary-list-item>

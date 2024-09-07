@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use App\Models\User;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 use App\Livewire\Forms\UserForm;
@@ -29,6 +30,14 @@ class Edit extends Component
     {
         $rules = $this->form->rules();
 
+        $rules['email'] = [
+            'required',
+            'email:rfc',
+            'max:255',
+            Rule::unique('users', 'email')
+                ->ignore($this->user->email, 'email'),
+        ];
+
         $rules['password'] = [
             Password::min(8)
                 ->letters()
@@ -50,7 +59,7 @@ class Edit extends Component
 
     public function closeModal()
     {
-        $this->showModal= false;
+        $this->showModal = false;
     }
 
     public function render()

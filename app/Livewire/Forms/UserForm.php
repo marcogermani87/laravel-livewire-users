@@ -18,7 +18,7 @@ class UserForm extends Form
         return [
             'name' => 'required|max:60',
             //'email' => 'required|email:rfc,dns|max:255',
-            'email' => 'required|email:rfc|max:255',
+            'email' => 'required|unique:users|email:rfc|max:255',
             'password' => [
                 'required',
                 Password::min(8)

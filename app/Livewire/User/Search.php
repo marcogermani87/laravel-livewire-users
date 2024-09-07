@@ -17,13 +17,9 @@ class Search extends Component
         $this->resetPage();
     }
 
-    public function delete($id)
+    public function closeModal()
     {
-        $user = User::findOrFail($id);
-
-        $user->delete();
-
-        session()->flash('success-message', 'User successfully deleted.');
+        $this->showModal = false;
     }
 
     public function render()

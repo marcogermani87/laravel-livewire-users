@@ -16,5 +16,14 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(250)
             ->create();
+
+        $datetime = now();
+
+        User::factory()->create([
+            'name' => 'John Doe',
+            'email' => 'j.doe@example.com',
+            'created_at' => $datetime,
+            'updated_at' => $datetime,
+        ]);
     }
 }
