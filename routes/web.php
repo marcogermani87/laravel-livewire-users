@@ -1,8 +1,12 @@
 <?php
 
+use App\Events\MessageSent;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Livewire\Chat;
 use App\Livewire\User\Create;
 use App\Livewire\User\Search;
+use App\Models\ChatMessage;
+use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
@@ -43,8 +47,40 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')
         ->name('dashboard');
+
     Route::get('/users', Search::class)
         ->name('users');
+
     Route::get('/users/create', Create::class)
         ->name('users.create');
+
+    // Chat Room Route
+    Route::get('/chat/{friend}', Chat::class)->name('chat');
+
+    // Get Chat Messages Route
+    Route::get('/messages/{friend}', function (User $friend) {
+        return ChatMessage::query()
+            ->where(function ($query) use ($friend) {
+                $query->where('sender_id', auth()->id())
+                    ->where('receiver_id', $friend->id);
+            })
+            ->orWhere(function ($query) use ($friend) {
+                $query->where('sender_id', $friend->id)
+                    ->where('receiver_id', auth()->id());
+            })
+            ->with(['sender', 'receiver'])
+            ->orderBy('id', 'asc')
+            ->get();
+    });
+
+    // Send Chat Message Route
+    Route::post('/messages/{friend}', function (User $friend) {
+        $message = ChatMessage::create([
+            'sender_id' => auth()->id(),
+            'receiver_id' => $friend->id,
+            'text' => request()->input('message')
+        ]);
+        broadcast(new MessageSent($message));
+        return $message;
+    });
 });

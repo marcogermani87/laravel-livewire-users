@@ -32,7 +32,8 @@
                 <x-slot:avatar>
                     <x-mary-avatar
                         :image="'https://ui-avatars.com/api/?size=128&background=random&name=' . urlencode($user->name)"
-                        class="!w-14"/>
+                        class="!w-14"
+                    />
                 </x-slot:avatar>
                 <x-slot:value>
                     {{ $user->name }}
@@ -44,6 +45,14 @@
                 </x-slot:sub-value>
                 <x-slot:actions>
                     @if(!$isYou)
+{{--                        </x-nav-link>--}}
+                        <x-mary-button
+                            icon="o-chat-bubble-bottom-center-text"
+                            class="btn-outline btn-primary btn-sm"
+                            link="{{ route('chat', ['friend' => $user->id]) }}"
+                            wire:key="user-chat-{{ $user->id }}"
+                            no-wire-navigate
+                        />
                         <livewire:user.edit :id="$user->id" wire:key="user-edit-{{ $user->id }}"/>
                         <livewire:user.delete :user="$user" wire:key="user-delete-{{ $user->id }}"/>
                     @else
