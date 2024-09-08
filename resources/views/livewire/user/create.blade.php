@@ -1,8 +1,8 @@
 @php
-    $label = "New User";
+    $label = __('New User');
 @endphp
 <div>
-    <x-mary-button class="btn-primary btn-sm" label="{{ $label }}" wire:click="$toggle('showModal')"/>
+    <x-mary-button class="btn-primary btn-sm" :label="$label" wire:click="$toggle('showModal')"/>
 
     @if($showModal)
         <x-mary-modal wire:model="showModal" persistent>

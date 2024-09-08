@@ -10,15 +10,15 @@ class Delete extends Component
 {
     use HasModal;
 
-    public int $id;
+    public User $user;
 
-    public function delete($id)
+    public function delete()
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($this->user->id);
 
         $user->delete();
 
-        session()->flash('success-message', 'User successfully deleted.');
+        session()->flash('success-message', __('User successfully deleted.'));
 
         return $this->redirect('/users', navigate: true);
     }

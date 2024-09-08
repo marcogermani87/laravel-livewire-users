@@ -1,5 +1,5 @@
 @php
-    $label = "Update User";
+    $label = __('Update User');
 @endphp
 <div>
     <x-mary-button icon="o-pencil-square" class="btn-outline btn-sm" wire:click="$toggle('showModal')"/>

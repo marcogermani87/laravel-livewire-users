@@ -28,7 +28,7 @@ class Create extends Component
 
         User::create($formData);
 
-        session()->flash('success-message', 'User successfully created.');
+        session()->flash('success-message', __('User successfully created.'));
 
         return $this->redirect('/users', navigate: true);
     }

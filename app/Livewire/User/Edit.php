@@ -53,7 +53,7 @@ class Edit extends Component
 
         $this->user->update($formData);
 
-        session()->flash('success-message', 'User successfully updated.');
+        session()->flash('success-message', __('User successfully updated.'));
 
         return $this->redirect('/users', navigate: true);
     }

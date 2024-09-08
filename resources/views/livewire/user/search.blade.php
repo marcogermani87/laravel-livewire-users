@@ -19,7 +19,7 @@
         <div class="mb-3">
             <x-mary-input
                 wire:model.live="search"
-                placeholder="Search user for e-mail or name..."
+                :placeholder="__('Search user for e-mail or name...')"
                 autocomplete="off"
                 clearable
             />
@@ -39,13 +39,13 @@
                 </x-slot:value>
                 <x-slot:sub-value>
                     {{ $user->email }} @if($isYou)
-                        <x-mary-badge value="You" class="ml-2 badge-info"/>
+                        <x-mary-badge :value="__('You')" class="ml-2 badge-info"/>
                     @endif
                 </x-slot:sub-value>
                 <x-slot:actions>
                     @if(!$isYou)
                         <livewire:user.edit :id="$user->id" wire:key="user-edit-{{ $user->id }}"/>
-                        <livewire:user.delete :id="$user->id" wire:key="user-delete-{{ $user->id }}"/>
+                        <livewire:user.delete :user="$user" wire:key="user-delete-{{ $user->id }}"/>
                     @else
                         <x-mary-button
                             icon="o-pencil-square"
@@ -60,7 +60,7 @@
         @if( !empty($search) && count($users) <= 0)
             <div class="mt-5">
                 <x-mary-alert icon="o-information-circle" class="alert-info">
-                    No users found!
+                    {{ __('No users found!') }}
                 </x-mary-alert>
             </div>
         @endif
