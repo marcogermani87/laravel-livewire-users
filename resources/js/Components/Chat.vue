@@ -83,6 +83,7 @@ onMounted(() => {
 
     Echo.private(`chat.${props.currentUser.id}`)
         .listen("MessageSent", (response) => {
+            console.log("Listen -> MessageSent");
             messages.value.push(response.message);
         })
         .listenForWhisper("typing", (response) => {

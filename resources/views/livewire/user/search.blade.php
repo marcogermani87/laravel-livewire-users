@@ -24,7 +24,7 @@
                 clearable
             />
         </div>
-        @foreach ($users as $user)
+        @forelse ($users as $user)
             @php
                 $isYou = auth()->user()->id === $user->id;
             @endphp
@@ -45,7 +45,7 @@
                 </x-slot:sub-value>
                 <x-slot:actions>
                     @if(!$isYou)
-{{--                        </x-nav-link>--}}
+                        {{--                        </x-nav-link>--}}
                         <x-mary-button
                             icon="o-chat-bubble-bottom-center-text"
                             class="btn-outline btn-primary btn-sm"
@@ -65,14 +65,13 @@
                     @endif
                 </x-slot:actions>
             </x-mary-list-item>
-        @endforeach
-        @if( !empty($search) && count($users) <= 0)
+        @empty
             <div class="mt-5">
                 <x-mary-alert icon="o-information-circle" class="alert-info">
                     {{ __('No users found!') }}
                 </x-mary-alert>
             </div>
-        @endif
+        @endforelse
         <div class="mt-3">
             {{ $users->links() }}
         </div>
